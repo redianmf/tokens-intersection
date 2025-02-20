@@ -1,0 +1,21 @@
+{
+  "name": "tokens-intersection",
+  "version": "1.0.0",
+  "description": "Utils to get intersected tokens between Odos router and bridge providers",
+  "main": "index.ts",
+  "scripts": {
+    "fetcher": "npx tsx src/utils/fetcher.ts",
+    "find": "npx tsx src/index.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.4",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.2"
+  },
+  "author": "Redian Fikri",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.7.9"
+  }
+}
