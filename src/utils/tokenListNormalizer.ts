@@ -1,4 +1,10 @@
-import { IBaseToken, IDeBridgeToken, ILifiToken, IOdosToken } from "../types";
+import {
+  IBaseToken,
+  IDeBridgeToken,
+  ILifiToken,
+  IOdosToken,
+  IRawHashPortToken,
+} from "../types";
 
 export const normalizeDeBridgeTokens = (tokenList: {
   [key: string]: IDeBridgeToken;
@@ -45,6 +51,31 @@ export const normalizeOdosTokens = (tokenList: {
       decimals: tokenList[key].decimals,
       name: tokenList[key].name,
       symbol: tokenList[key].symbol,
+    };
+
+    tokens.push(token);
+  }
+
+  return tokens;
+};
+
+export const normalizeHashPortTokens = (
+  tokenList: IRawHashPortToken[],
+  chainId: number
+): IBaseToken[] => {
+  const tokens: IBaseToken[] = [];
+
+  const tokensInChain = tokenList.find((item) => item.network.id === chainId);
+
+  if (!tokensInChain?.assets) throw new Error("No hashport tokens found");
+
+  const { assets } = tokensInChain;
+  for (let key in assets) {
+    const token: IBaseToken = {
+      address: key,
+      decimals: assets[key].decimals,
+      name: assets[key].name,
+      symbol: assets[key].symbol,
     };
 
     tokens.push(token);
