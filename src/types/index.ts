@@ -30,3 +30,19 @@ export interface IOdosToken extends IBaseToken {
   protocolId?: string | null;
   isRebasing?: boolean;
 }
+
+interface IHashPortToken extends IBaseToken {
+  id?: string;
+  isNative?: boolean;
+  icon?: string;
+  bridgeableNetworks?: any;
+}
+
+interface IHashPortNetwork {
+  id?: number;
+  name?: string;
+}
+export interface IRawHashPortToken {
+  network: IHashPortNetwork;
+  assets: { [key: string]: IHashPortToken };
+}
