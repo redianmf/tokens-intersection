@@ -29,6 +29,9 @@ export class TokenIntersectionBuilder extends IntersectionBuilder {
       );
     });
 
+    if (intersectionTokens.length < 1)
+      throw new Error("No intersected tokens found");
+
     this.clearTokens();
     return intersectionTokens;
   }
