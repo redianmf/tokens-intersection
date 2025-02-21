@@ -9,13 +9,11 @@ import rawDeBridgeTokensBase from "./data/deBridgeTokensBase.json";
 import rawDeBridgeTokensBsc from "./data/deBridgeTokensBsc.json";
 import rawDeBridgeTokensPol from "./data/deBridgeTokensPol.json";
 
-import rawLifiTokensBase from "./data/lifiTokensBase.json";
-import rawLifiTokensBsc from "./data/lifiTokensBsc.json";
-import rawLifiTokensPol from "./data/lifiTokensPol.json";
-
 import rawOdosTokensBase from "./data/odosTokensBase.json";
 import rawOdosTokensBsc from "./data/odosTokensBsc.json";
 import rawOdosTokensPol from "./data/odosTokensPol.json";
+
+import rawLifiTokens from "./data/lifiTokens.json";
 
 import { saveToFile } from "./utils/saveToFile";
 
@@ -31,9 +29,9 @@ const main = async () => {
     rawDeBridgeTokensPol.tokens
   );
 
-  const lifiTokensBase = normalizeLifiTokens(rawLifiTokensBase.tokens[8453]);
-  const lifiTokensBsc = normalizeLifiTokens(rawLifiTokensBsc.tokens[56]);
-  const lifiTokensPol = normalizeLifiTokens(rawLifiTokensPol.tokens[137]);
+  const lifiTokensBase = normalizeLifiTokens(rawLifiTokens.tokens[8453]);
+  const lifiTokensBsc = normalizeLifiTokens(rawLifiTokens.tokens[56]);
+  const lifiTokensPol = normalizeLifiTokens(rawLifiTokens.tokens[137]);
 
   const odosTokensBase = normalizeOdosTokens(rawOdosTokensBase.tokenMap);
   const odosTokensBsc = normalizeOdosTokens(rawOdosTokensBsc.tokenMap);
