@@ -46,3 +46,16 @@ export interface IRawHashPortToken {
   network: IHashPortNetwork;
   assets: { [key: string]: IHashPortToken };
 }
+
+interface ICbridgeTokenDetails {
+  symbol: string;
+  address: string;
+  decimal: number;
+  xfer_disabled: boolean;
+}
+
+export interface ICbridgeToken {
+  token: ICbridgeTokenDetails;
+  name: string;
+  icon?: string;
+}
