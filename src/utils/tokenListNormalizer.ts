@@ -1,5 +1,6 @@
 import {
   IBaseToken,
+  ICbridgeToken,
   IDeBridgeToken,
   ILifiToken,
   IOdosToken,
@@ -80,6 +81,25 @@ export const normalizeHashPortTokens = (
 
     tokens.push(token);
   }
+
+  return tokens;
+};
+
+export const normalizeCbridgeTokens = (
+  tokenList: ICbridgeToken[]
+): IBaseToken[] => {
+  const tokens = tokenList
+    // ?.filter((tok) => !tok.token.xfer_disabled)
+    .map((item) => {
+      const token: IBaseToken = {
+        address: item.token.address,
+        decimals: item.token.decimal,
+        name: item.name,
+        symbol: item.token.symbol,
+      };
+
+      return token;
+    });
 
   return tokens;
 };

@@ -4,6 +4,7 @@ import { IBaseToken } from "../types";
 
 // Functions
 import {
+  normalizeCbridgeTokens,
   normalizeDeBridgeTokens,
   normalizeHashPortTokens,
   normalizeLifiTokens,
@@ -102,6 +103,38 @@ const hashPortToken: IBaseToken[] = [
     address: "0x19D84401948DC6f01f44C62BA97e57BFb3af065f",
   },
 ];
+const rawCbridgeToken = {
+  "1": {
+    token: [
+      {
+        token: {
+          symbol: "AAVE",
+          address: "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+          decimal: 18,
+          xfer_disabled: false,
+        },
+        name: "AAVE Token",
+        icon: "https://get.celer.app/cbridge-icons/aave.png",
+        inbound_lmt: "",
+        inbound_epoch_cap: "",
+        transfer_disabled: false,
+        liq_add_disabled: false,
+        liq_rm_disabled: false,
+        liq_agg_rm_src_disabled: false,
+        delay_threshold: "",
+        delay_period: 0,
+      },
+    ],
+  },
+};
+const cBridgeToken: IBaseToken[] = [
+  {
+    symbol: "AAVE",
+    name: "AAVE Token",
+    decimals: 18,
+    address: "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+  },
+];
 
 test("Able to normalize odos token list", () => {
   const normalizedOdosToken = normalizeOdosTokens(rawOdosToken.tokenMap);
@@ -126,4 +159,11 @@ test("Able to normalize hashport token list", () => {
     250
   );
   expect(normalizedHashPortToken).toEqual(hashPortToken);
+});
+
+test("Able to normalize cBridge token list", () => {
+  const normalizedCbridgeToken = normalizeCbridgeTokens(
+    rawCbridgeToken[1].token
+  );
+  expect(normalizedCbridgeToken).toEqual(cBridgeToken);
 });
