@@ -1,5 +1,6 @@
 import { TokenIntersectionBuilder } from "./intersectionBuilder";
 import {
+  normalizeCbridgeTokens,
   normalizeDeBridgeTokens,
   normalizeLifiTokens,
   normalizeOdosTokens,
@@ -13,6 +14,7 @@ import rawOdosTokensBase from "./data/odosTokensBase.json";
 import rawOdosTokensBsc from "./data/odosTokensBsc.json";
 import rawOdosTokensPol from "./data/odosTokensPol.json";
 
+import rawCbridgeTokens from "./data/cBridgeTokens.json";
 import rawLifiTokens from "./data/lifiTokens.json";
 
 import { saveToFile } from "./utils/saveToFile";
@@ -33,6 +35,12 @@ const main = async () => {
   const lifiTokensBsc = normalizeLifiTokens(rawLifiTokens.tokens[56]);
   const lifiTokensPol = normalizeLifiTokens(rawLifiTokens.tokens[137]);
 
+  const cBridgeTokensBase = normalizeCbridgeTokens(
+    rawCbridgeTokens[8453].token
+  );
+  const cBridgeTokensBsc = normalizeCbridgeTokens(rawCbridgeTokens[56].token);
+  const cBridgeTokensPol = normalizeCbridgeTokens(rawCbridgeTokens[137].token);
+
   const odosTokensBase = normalizeOdosTokens(rawOdosTokensBase.tokenMap);
   const odosTokensBsc = normalizeOdosTokens(rawOdosTokensBsc.tokenMap);
   const odosTokensPol = normalizeOdosTokens(rawOdosTokensPol.tokenMap);
@@ -50,9 +58,14 @@ const main = async () => {
     .addTokens(lifiTokensBsc)
     .execute();
 
+  const cBridgeBasBsc = tokensBuilder
+    .addTokens(cBridgeTokensBase)
+    .addTokens(cBridgeTokensBsc)
+    .execute();
+
   const basBscWithDeBridge = tokensBuilder
     .addTokens(odosTokensBase)
-    .addTokens(lifiBasBsc)
+    .addTokens(deBridgeBasBsc)
     .addTokens(odosTokensBsc)
     .execute();
 
