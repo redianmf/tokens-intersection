@@ -3,6 +3,7 @@ import {
   normalizeCbridgeTokens,
   normalizeDeBridgeTokens,
   normalizeLifiTokens,
+  normalizeMayanTokens,
   normalizeOdosTokens,
 } from "./utils/tokenListNormalizer";
 
@@ -16,6 +17,7 @@ import rawOdosTokensPol from "./data/odosTokensPol.json";
 
 import rawCbridgeTokens from "./data/cBridgeTokens.json";
 import rawLifiTokens from "./data/lifiTokens.json";
+import rawMayanTokens from "./data/mayanTokens.json";
 
 import { saveToFile } from "./utils/saveToFile";
 
@@ -45,6 +47,10 @@ const main = async () => {
   const odosTokensBsc = normalizeOdosTokens(rawOdosTokensBsc.tokenMap);
   const odosTokensPol = normalizeOdosTokens(rawOdosTokensPol.tokenMap);
 
+  const mayanTokensBase = normalizeMayanTokens(rawMayanTokens.base);
+  const mayanTokensBsc = normalizeMayanTokens(rawMayanTokens.bsc);
+  const mayanTokensPol = normalizeMayanTokens(rawMayanTokens.polygon);
+
   // Create token intersection
   const tokensBuilder = new TokenIntersectionBuilder();
 
@@ -61,6 +67,11 @@ const main = async () => {
   const cBridgeBasBsc = tokensBuilder
     .addTokens(cBridgeTokensBase)
     .addTokens(cBridgeTokensBsc)
+    .execute();
+
+  const mayanBasBsc = tokensBuilder
+    .addTokens(mayanTokensBase)
+    .addTokens(mayanTokensBsc)
     .execute();
 
   const basBscWithDeBridge = tokensBuilder
