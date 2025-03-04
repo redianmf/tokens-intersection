@@ -59,3 +59,7 @@ export interface ICbridgeToken {
   name: string;
   icon?: string;
 }
+
+export interface IMayanToken extends IBaseToken {
+  contract: string;
+}
