@@ -3,6 +3,7 @@ import {
   ICbridgeToken,
   IDeBridgeToken,
   ILifiToken,
+  IMayanToken,
   IOdosToken,
   IRawHashPortToken,
 } from "../types";
@@ -100,6 +101,23 @@ export const normalizeCbridgeTokens = (
 
       return token;
     });
+
+  return tokens;
+};
+
+export const normalizeMayanTokens = (
+  tokenList: IMayanToken[]
+): IBaseToken[] => {
+  const tokens = tokenList.map((item) => {
+    const token: IBaseToken = {
+      address: item.contract,
+      decimals: item.decimals,
+      name: item.name,
+      symbol: item.symbol,
+    };
+
+    return token;
+  });
 
   return tokens;
 };

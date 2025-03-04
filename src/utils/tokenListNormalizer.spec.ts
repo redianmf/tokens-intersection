@@ -8,6 +8,7 @@ import {
   normalizeDeBridgeTokens,
   normalizeHashPortTokens,
   normalizeLifiTokens,
+  normalizeMayanTokens,
   normalizeOdosTokens,
 } from "./tokenListNormalizer";
 
@@ -135,6 +136,38 @@ const cBridgeToken: IBaseToken[] = [
     address: "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
   },
 ];
+const rawMayanToken = {
+  ethereum: [
+    {
+      name: "ETH",
+      standard: "native",
+      symbol: "ETH",
+      mint: "7vfCXTUXx5WJV5JADk17DUJ4ksgau7utNKj4b963voxs",
+      verified: true,
+      contract: "0x0000000000000000000000000000000000000000",
+      chainId: 1,
+      wChainId: 2,
+      decimals: 18,
+      logoURI: "https://statics.mayan.finance/eth.png",
+      wrappedAddress: "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+      coingeckoId: "weth",
+      pythUsdPriceId:
+        "0xff61491a931112ddf1bd8147cd1b641375f79f5825126d665480874634fd0ace",
+      realOriginContractAddress: "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+      realOriginChainId: 2,
+      supportsPermit: false,
+      hasAuction: true,
+    },
+  ],
+};
+const mayanToken: IBaseToken[] = [
+  {
+    symbol: "ETH",
+    name: "ETH",
+    decimals: 18,
+    address: "0x0000000000000000000000000000000000000000",
+  },
+];
 
 test("Able to normalize odos token list", () => {
   const normalizedOdosToken = normalizeOdosTokens(rawOdosToken.tokenMap);
@@ -166,4 +199,9 @@ test("Able to normalize cBridge token list", () => {
     rawCbridgeToken[1].token
   );
   expect(normalizedCbridgeToken).toEqual(cBridgeToken);
+});
+
+test("Able to normalize Mayan token list", () => {
+  const normalizedMayanToken = normalizeMayanTokens(rawMayanToken.ethereum);
+  expect(normalizedMayanToken).toEqual(mayanToken);
 });
