@@ -2,11 +2,21 @@ import {
   IBaseToken,
   ICbridgeToken,
   IDeBridgeToken,
-  ILifiToken,
   IMayanToken,
   IOdosToken,
   IRawHashPortToken,
 } from "../types";
+
+export const normalizeGenericTokens = <T extends IBaseToken>(
+  tokenList: T[]
+): IBaseToken[] => {
+  return tokenList.map((item) => ({
+    address: item.address,
+    decimals: item.decimals,
+    name: item.name,
+    symbol: item.symbol,
+  }));
+};
 
 export const normalizeDeBridgeTokens = (tokenList: {
   [key: string]: IDeBridgeToken;
@@ -23,21 +33,6 @@ export const normalizeDeBridgeTokens = (tokenList: {
 
     tokens.push(token);
   }
-
-  return tokens;
-};
-
-export const normalizeLifiTokens = (tokenList: ILifiToken[]): IBaseToken[] => {
-  const tokens = tokenList?.map((item) => {
-    const token: IBaseToken = {
-      address: item.address,
-      decimals: item.decimals,
-      name: item.name,
-      symbol: item.symbol,
-    };
-
-    return token;
-  });
 
   return tokens;
 };
