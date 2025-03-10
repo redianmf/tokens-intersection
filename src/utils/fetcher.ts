@@ -13,14 +13,15 @@ const paraswapTokensEndpoint = "https://api.paraswap.network/tokens/137";
 const cBridgeTokensEndpoint =
   "https://cbridge-prod2.celer.app/v2/getTransferConfigsForAll";
 const mayanTokensEndpoint = "https://price-api.mayan.finance/v3/tokens";
+const curveTokensEndpoint = "https://api.crosscurve.fi/tokenlist";
 
 const fetcher = async () => {
-  const res = await axios.get(mayanTokensEndpoint);
+  const res = await axios.get(curveTokensEndpoint);
   const data = JSON.stringify(res.data);
 
-  // console.log(res?.data);
+  console.log(res?.data);
 
-  await saveToFile("./src/data", "mayanTokens.json", data);
+  await saveToFile("./src/data", "curveTokens.json", data);
 };
 
 fetcher().catch((e) => console.log(e));
