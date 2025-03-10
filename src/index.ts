@@ -2,7 +2,7 @@ import { TokenIntersectionBuilder } from "./intersectionBuilder";
 import {
   normalizeCbridgeTokens,
   normalizeDeBridgeTokens,
-  normalizeLifiTokens,
+  normalizeGenericTokens,
   normalizeMayanTokens,
   normalizeOdosTokens,
 } from "./utils/tokenListNormalizer";
@@ -16,6 +16,7 @@ import rawOdosTokensBsc from "./data/odosTokensBsc.json";
 import rawOdosTokensPol from "./data/odosTokensPol.json";
 
 import rawCbridgeTokens from "./data/cBridgeTokens.json";
+import rawCurveTokens from "./data/curveTokens.json";
 import rawLifiTokens from "./data/lifiTokens.json";
 import rawMayanTokens from "./data/mayanTokens.json";
 
@@ -33,9 +34,9 @@ const main = async () => {
     rawDeBridgeTokensPol.tokens
   );
 
-  const lifiTokensBase = normalizeLifiTokens(rawLifiTokens.tokens[8453]);
-  const lifiTokensBsc = normalizeLifiTokens(rawLifiTokens.tokens[56]);
-  const lifiTokensPol = normalizeLifiTokens(rawLifiTokens.tokens[137]);
+  const lifiTokensBase = normalizeGenericTokens(rawLifiTokens.tokens[8453]);
+  const lifiTokensBsc = normalizeGenericTokens(rawLifiTokens.tokens[56]);
+  const lifiTokensPol = normalizeGenericTokens(rawLifiTokens.tokens[137]);
 
   const cBridgeTokensBase = normalizeCbridgeTokens(
     rawCbridgeTokens[8453].token
@@ -47,9 +48,15 @@ const main = async () => {
   const odosTokensBsc = normalizeOdosTokens(rawOdosTokensBsc.tokenMap);
   const odosTokensPol = normalizeOdosTokens(rawOdosTokensPol.tokenMap);
 
+  const mayanTokensArb = normalizeMayanTokens(rawMayanTokens.arbitrum);
   const mayanTokensBase = normalizeMayanTokens(rawMayanTokens.base);
   const mayanTokensBsc = normalizeMayanTokens(rawMayanTokens.bsc);
   const mayanTokensPol = normalizeMayanTokens(rawMayanTokens.polygon);
+
+  const curveTokensArb = normalizeGenericTokens(rawCurveTokens.arbitrum.tokens);
+  const curveTokensBase = normalizeGenericTokens(rawCurveTokens.base.tokens);
+  const curveTokensBsc = normalizeGenericTokens(rawCurveTokens.bsc.tokens);
+  const curveTokensPol = normalizeGenericTokens(rawCurveTokens.polygon.tokens);
 
   // Create token intersection
   const tokensBuilder = new TokenIntersectionBuilder();
@@ -70,8 +77,14 @@ const main = async () => {
     .execute();
 
   const mayanBasBsc = tokensBuilder
-    .addTokens(mayanTokensBase)
-    .addTokens(mayanTokensBsc)
+    .addTokens(mayanTokensArb)
+    // .addTokens(mayanTokensBase)
+    .addTokens(mayanTokensPol)
+    .execute();
+
+  const curveBasBsc = tokensBuilder
+    .addTokens(curveTokensBase)
+    .addTokens(curveTokensBsc)
     .execute();
 
   const basBscWithDeBridge = tokensBuilder
